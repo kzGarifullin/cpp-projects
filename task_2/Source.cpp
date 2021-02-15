@@ -2,7 +2,10 @@
 #include<chrono>
 #include<vector>
 #include<algorithm>
-
+#include<array>
+#include<deque>
+#include <list>
+#include <forward_list>
 class Timer
 {
 public:
@@ -32,22 +35,51 @@ private:
 };
 int main()
 {
-	std::vector<int>v;
-	std::vector<int>b;
-	std::vector<int>c;
-	v.reserve(100000);
-	b.reserve(100000);
-	c.reserve(100000);
+	
+		
+	//	std::vector<int>v;
+	//	v.reserve(100000);
+	//	for (auto i = 100000; i >= 0; --i)
+	//	{
+	//		v.push_back(i);
+	//	}
+	//Timer T;
+	//std::sort(std::begin(v), std::end(v));//vector=100000
+	
+	/*std::array<int, 100001> myarray;
+	int k = 0;
 	for (auto i = 100000; i >= 0; --i)
 	{
-		v.push_back(i);
-		b.push_back(i);
-		c.push_back(i);
+		myarray[k] = i;
+		k++;
+	}
+	std::sort(myarray.begin(), myarray.end());//140000
+	*/
+
+	//std::deque<int> d ;
+	//for (auto i = 100000; i >= 0; --i)
+	//{
+	//	d.push_back(i);
+	//}
+	//Timer T;
+	//std::sort(std::begin(d), std::end(d));//477000
+
+
+	//std::list<int> l;
+	//for (auto i = 100000; i >= 0; --i)
+	//{
+	//	l.push_back(i);
+	//}
+	//Timer T;
+	//l.sort();//60000
+	
+	std::forward_list<int> fl;
+	int k = 0;
+	for (auto i = 0; i <= 100000; ++i)
+	{
+		fl.push_front(i);
 	}
 	Timer T;
-	std::sort(std::begin(v), std::end(v));
-	T.pause();
-	std::sort(std::begin(b), std::end(b));
-	T.cont();
-	std::sort(std::begin(c), std::end(c));
+	fl.sort();//70000
+	
 }
