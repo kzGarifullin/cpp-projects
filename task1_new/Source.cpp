@@ -28,7 +28,7 @@ int main()
 		//vector_memory.exe: исключение Microsoft C++: std::bad_alloc по адресу памяти 0x00EFF138.
 	}
 	catch (...) {
-		std::cerr << "Error";
+		std::cerr << "Memory error";
 	}
 
 	return 0;
