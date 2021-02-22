@@ -38,28 +38,6 @@ private:
 	time_point_t pa;
 	std::chrono::microseconds dur;
 };
-//int main()
-//{
-//	std::vector<int>v;
-//	std::vector<int>b;
-//	std::vector<int>c;
-//	v.reserve(100000);
-//	b.reserve(100000);
-//	c.reserve(100000);
-//	for (auto i = 100000; i >= 0; --i)
-//	{
-//		v.push_back(i);
-//		b.push_back(i);
-//		c.push_back(i);
-//	}
-//	Timer T;
-//	std::sort(std::begin(v), std::end(v));
-//	T.pause();
-//	std::sort(std::begin(b), std::end(b));
-//	T.cont();
-//	std::sort(std::begin(c), std::end(c));
-
-
 int main()
 {
 	int N = 100000;
