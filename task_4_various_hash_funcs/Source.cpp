@@ -158,7 +158,7 @@ int main(int argc, char** argv)
 	//hashes.push_back(APHash);
 	std::set <int> hash;
 	int index = 0;
-	int N = 5000000;
+	int N = 50000;
 	std::set < std::string > words = make_random_words(N, 10);
 	for (int i = 0; i < 9; i++) {
 		std::set <int> hash;
@@ -174,46 +174,6 @@ int main(int argc, char** argv)
 		
 	}
 	
-	//std::string Columns[] = { "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
-	//	"S","T","U","V","W","X","Y","Z" };
-	//std::string columns[] = { "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r",
-	//	"s","t","u","v","w","x","y","z" };
-	//int N = 20;
-	//for (int a = 0; a < N; a++)
-	//{
-	//	std::string str1 = columns[a];//можно взять Columns-тогда будет верхний регистр
-	//	for (int b = 0; b < N; b++)
-	//	{
-	//		std::string str2 = str1 + columns[b];
-	//		for (int c = 0; c < N; c++)
-	//		{
-	//			std::string str3 = str2 + columns[c];
-	//			for (int d = 0; d < N; d++)
-	//			{
-
-	//				std::string str4 = str3 + columns[d];
-	//				for (int e = 0; e < N; e++) {
-	//					//std::cout << str5<<std::endl;
-	//					std::string str5 = str4 + columns[e];
-	//					for (int f = 0; f < N; f++)
-	//					{
-	//						std::string str6 = str5 + columns[f];
-	//						const char* c = str6.c_str();
-	//						//std::cout << c<< std::endl;
-	//						hash.insert(JSHash(c, 6));
-	//						//hash.insert(PJWHash(c, 6));
-	//						//std::cout << str6 << std::endl;
-	//						//std::cout << JSHash(c, 6)<<std::endl;
-	//						index++;
-	//						//std::cout<<Customer_Hash()(Customer(str5, index % 100));
-	//						//hash.insert(Customer_Hash()(Customer(str5, index % 100)));
-	//					}
-	//				}
-
-	//			}
-	//		}
-	//	}
-	//}
-
+	
 
 }
