@@ -31,21 +31,16 @@ int main(int argc, char** argv)
 	Persons.insert({ "Yana",    95789, "phoned today at 6am" });
 
 
-	//std::cout <<"phoned today at 2pm:" <<Persons.count("phoned today at 2pm ")<<" person" << std::endl;
+	std::cout <<"phoned today at 2pm: " <<Persons.count("phoned today at 2pm")<<" person" << std::endl;
 
-	auto& hashed_legs_index = Persons.get < 1 >();
-	std::cout << hashed_legs_index.count(4) << std::endl;
-
-	//auto iterator = hashed_legs_index.find(0);
-	//hashed_legs_index.modify(iterator, [](Person& Person) { Person.name = "whale"; });
-
-	//std::cout << hashed_legs_index.find(0)->name << std::endl;
-
-	//std::cout << std::endl;
-
+	auto& hashed_phone_index = Persons.get < 1 >();
+	//std::cout << hashed_legs_index.count(14235) << std::endl;
+	std::cout << hashed_phone_index.find(14235)->name << std::endl;//для обычного пользователя- поиск 
+	//человека по номеру
+	std::cout << std::endl;
 	const auto & ordered_names_index = Persons.get < 3 > ();
 
-	for (auto i:ordered_names_index)
+	for (auto i:ordered_names_index)//для типографии- сортированный set
 	{
 		std::cout << i.name<< std::endl;
 	}
@@ -54,7 +49,8 @@ int main(int argc, char** argv)
 
 	const auto& random_access_index = Persons.get < 2 >();
 
-	std::cout << random_access_index[3].name << std::endl;//для рекламного агенства- доступ к произвольной записи
+	std::cout << random_access_index[3].name << std::endl;//для рекламного агенства- доступ к 
+	//произвольной записи
 
 	
 }
