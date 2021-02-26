@@ -3,6 +3,24 @@
 #include <string>
 #include <unordered_set>
 #include <set>
+#include <chrono>
+#include <random>
+#include <vector>
+std::set < std::string > make_random_words(std::size_t N, std::size_t length) // length = 10 - good enough
+{
+	std::uniform_int_distribution <> letter(97, 122);
+	std::default_random_engine e(static_cast <std::size_t> (
+		std::chrono::system_clock::now().time_since_epoch().count()));
+
+	std::set < std::string > words;
+
+	for (std::string s(length, '_'); std::size(words) < N; words.insert(s))
+		for (auto& c : s)
+			c = letter(e);
+
+	return words;
+}
+
 // http://www.boost.org/doc/libs/1_35_0/doc/html/hash/combine.html
 
 template < typename T >
@@ -72,57 +90,27 @@ struct Customer_Equal
 	}
 };
 
-int main(int argc, char** argv)
+int main()
 {
 	std::unordered_set < Customer, Customer_Hash, Customer_Equal > customers;
-	std::set <int> hash;
+
 	customers.insert(Customer("Ivan", 42));
 	customers.insert(Customer("Jens", 66));
+
+		
+	std::set <int> hash;
 	int index = 0;
-	std::string Columns[] = { "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
-		"S","T","U","V","W","X","Y","Z" };
-	std::string columns[] = { "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r",
-		"s","t","u","v","w","x","y","z"};
-	int N = 24;
-	for (int a = 0; a < N; a++)
-	{
-		std::string str1 = Columns[a];
-		for (int b = 0; b < N; b++)
-		{
-			std::string str2 = str1 + columns[b];
-			for (int c = 0; c < N; c++)
-			{
-				std::string str3 = str2 + columns[c];
-				for (int d = 0; d < N; d++)
-				{
-					
-					std::string str4 = str3 + columns[d];
-					for (int e = 0; e < N; e++) {
-						//std::cout << str5<<std::endl;
-						std::string str5 = str4 + columns[e];
-						customers.insert(Customer(str5, index % 100));
-						index++;
-						//std::cout<<Customer_Hash()(Customer(str5, index % 100));
-						hash.insert(Customer_Hash()(Customer(str5, index % 100)));
-					}
-					
-				}
-			}
-		}
-	}
-			
-	std::cout << "index: " << index << std::endl;
-	std::cout << "size: " << hash.size()<<std::endl;
+	int N = 2500000;
+	std::set < std::string > words = make_random_words(N, 10);
 	
-	std::cout << "index-size: " << index-hash.size();
+		for (auto word : words) {
+			
+			customers.insert(Customer(word, index % 100));
+			index++;
+			hash.insert(Customer_Hash()(Customer(word, index % 100)));
+}
 
-
-	//for (const auto& customer : customers)
-	//{
-	//	std::cout << customer << std::endl;
-	//}
-
-	//system("pause");
-
-	//return EXIT_SUCCESS;
+		std::cout << "collisions " << N - hash.size();
+		std::cout << "           " << std::endl;
+	
 }
