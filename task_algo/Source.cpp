@@ -12,13 +12,14 @@
 //		std::back_inserter();
 //	}
 //}
-
+#include <numeric>
 #include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <string>
 #include <vector>
 #include <random>
+#include <chrono>
 bool isPrime(int num) {
 	bool flag = true;
 	for (int i = 2; i <= num / 2; i++) {
@@ -60,8 +61,31 @@ int main(int argc, char** argv)
 	auto [min, max] = std::minmax_element(std::begin(vector),std::end(vector));
 	std::cout << "min: "<<*min<<". max: "<<*max << std::endl;//#6
 	
-	std::cout << "Prime numbers";
+	std::cout << "Prime numbers: ";//#7
 	std::for_each(std::begin(vector), std::end(vector), [](auto x) {if(isPrime(x))std::cout << x<<" "; });
+
+	std::transform(std::begin(vector), std::end(vector), std::begin(vector), [](auto x) {return x * x; });
+	std::cout << std::endl;
+	std::cout << "Quadratic numbers: ";
+	std::for_each(std::begin(vector), std::end(vector), [](auto x) {std::cout << x << " "; });//#8
+	std::cout << std::endl;
+
+	std::default_random_engine dre(std::chrono::system_clock::now().time_since_epoch().count());//#9
+	std::vector<int>v2;
+
+	std::uniform_int_distribution<>uid(1, 10);
+	std::generate_n(std::back_inserter(v2), std::size(vector), [&dre, &uid]() {return uid(dre); });
+	std::for_each(std::begin(v2), std::end(v2), [](auto x) {std::cout << x << " "; });//#9
+	std::cout << std::endl;
+	
+	std::cout <<"summ: "<< std::accumulate(std::begin(v2), std::end(v2), 0)<<std::endl;//#10
+	
+	std::fill_n(std::begin(v2), 3, 0);
+	std::for_each(std::begin(v2), std::end(v2), [](auto x) {std::cout << x << " "; });//#11
+	std::cout << std::endl;
+
+
+
 	system("pause");
 
 	return EXIT_SUCCESS;
