@@ -12,13 +12,23 @@
 //		std::back_inserter();
 //	}
 //}
+
 #include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <string>
 #include <vector>
 #include <random>
-
+bool isPrime(int num) {
+	bool flag = true;
+	for (int i = 2; i <= num / 2; i++) {
+		if (num % i == 0) {
+			flag = false;
+			break;
+		}
+	}
+	return flag;
+}
 
 int main(int argc, char** argv)
 {
@@ -50,8 +60,8 @@ int main(int argc, char** argv)
 	auto [min, max] = std::minmax_element(std::begin(vector),std::end(vector));
 	std::cout << "min: "<<*min<<". max: "<<*max << std::endl;//#6
 	
-	
-	
+	std::cout << "Prime numbers";
+	std::for_each(std::begin(vector), std::end(vector), [](auto x) {if(isPrime(x))std::cout << x<<" "; });
 	system("pause");
 
 	return EXIT_SUCCESS;
