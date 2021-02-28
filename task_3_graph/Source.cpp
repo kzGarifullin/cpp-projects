@@ -89,18 +89,14 @@ struct Customer_Equal
 		return (lhs.m_name == rhs.m_name);
 	}
 };
-
 int main()
 {
 	std::unordered_set < Customer, Customer_Hash, Customer_Equal > customers;
-
 	customers.insert(Customer("Ivan", 42));
 	customers.insert(Customer("Jens", 66));
-
-		
 	std::set <int> hash;
 	int index = 0;
-	int N = 2500000;
+	int N = 10000;
 	std::set < std::string > words = make_random_words(N, 10);
 	
 		for (auto word : words) {
@@ -109,7 +105,6 @@ int main()
 			index++;
 			hash.insert(Customer_Hash()(Customer(word, index % 100)));
 }
-
 		std::cout << "collisions " << N - hash.size();
 		std::cout << "           " << std::endl;
 	
