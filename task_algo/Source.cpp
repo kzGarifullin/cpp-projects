@@ -80,12 +80,23 @@ int main(int argc, char** argv)
 	
 	std::cout <<"summ: "<< std::accumulate(std::begin(v2), std::end(v2), 0)<<std::endl;//#10
 	
-	std::fill_n(std::begin(v2), 3, 0);
+	std::fill_n(std::begin(v2), 3, 1);
 	std::for_each(std::begin(v2), std::end(v2), [](auto x) {std::cout << x << " "; });//#11
 	std::cout << std::endl;
 
+	std::vector<int> v3;//#12
+	std::transform(std::begin(vector), std::end(vector), std::begin(v2),std::back_inserter(v3), [](auto a,auto b) {return a-b; });
+	std::cout << "v3: " << std::endl;
+	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
+	std::cout << std::endl;
 
-
+	std::for_each(std::begin(v3), std::end(v3), [](auto &x) {if (x < 50) x = 0; });//#13
+	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
+	std::cout << std::endl;
+	
+	v3.erase(std::remove_if(std::begin(v3), std::end(v3), [](auto x) {return x == 0; }), std::end(v3));
+	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
+	std::cout << std::endl;//#14
 	system("pause");
 
 	return EXIT_SUCCESS;
