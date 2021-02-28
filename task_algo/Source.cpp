@@ -1,17 +1,3 @@
-//#include<iostream>
-//#include<vector>
-//#include <iterator>     // std::back_inserter
-//#include <algorithm>    // std::copy
-//
-//int main() {
-//	std::vector<int>v1{ 1,2,3,4,5,6,7,8,9,10 };
-//	int a;
-//	for (int i = 1; i <= 5; i++)
-//	{
-//		std::cin >> a;
-//		std::back_inserter();
-//	}
-//}
 #include <numeric>
 #include <algorithm>
 #include <iostream>
@@ -37,10 +23,10 @@ int main(int argc, char** argv)
 	std::vector<int>vector{ 1,2,3,4,5,6,7,8,9,10,11 };//#1
 	
 	
-	//std::copy(
-	//	std::istream_iterator < int >(std::cin),//#2
-	//	std::istream_iterator < int >(),
-	//	std::back_inserter(vector));
+	std::copy(
+		std::istream_iterator < int >(std::cin),//#2
+		std::istream_iterator < int >(),
+		std::back_inserter(vector));
 
 
 	std::mt19937 g;
@@ -132,7 +118,17 @@ int main(int argc, char** argv)
 	std::cout << "[" << a << "," << b << "]" << std::endl;
 
 	std::cout << "20 task" << std::endl;
-
+	std::copy(vector.cbegin(), vector.cend(),
+		std::ostream_iterator < int >(std::cout, " "));
+	std::cout<<std::endl;
+	std::copy(v2.cbegin(), v2.cend(),
+		std::ostream_iterator < int >(std::cout, " "));
+	std::cout << std::endl;
+	std::copy(v3.cbegin(), v3.cend(),
+		std::ostream_iterator < int >(std::cout, " "));
+	std::cout << std::endl;
+	std::copy(v4.cbegin(), v4.cend(),
+		std::ostream_iterator < int >(std::cout, " "));
 	return EXIT_SUCCESS;
 
 }
