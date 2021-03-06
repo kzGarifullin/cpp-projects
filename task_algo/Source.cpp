@@ -20,8 +20,10 @@ bool isPrime(int num) {
 int main(int argc, char** argv)
 {
 	//std::vector < std::string > vector;
-	std::vector<int>vector{ 1,2,3,4,5,6,7,8,9,10,11 };//#1
-	
+	std::vector<int> vector(11);
+	std::iota(vector.begin(), vector.end(), 0);
+	//std::vector<int>vector{ 1,2,3,4,5,6,7,8,9,10,11 };//#1
+	//std::for_each(std::begin(vector), std::end(vector), [](auto x) {std::cout << x << " "; });
 	
 	std::copy(
 		std::istream_iterator < int >(std::cin),//#2
