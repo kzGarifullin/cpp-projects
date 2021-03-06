@@ -39,9 +39,11 @@ int main(int argc, char** argv)
 	std::ostream_iterator < int >(std::cout, "\n"));
 	std::sort(vector.begin(), vector.end());
 	std::cout << "unique"<<std::endl;
-	std::unique_copy(vector.cbegin(), vector.cend(),//#4
-		std::ostream_iterator < int >(std::cout, "\n"));
 	
+	vector.erase(std::unique(vector.begin(), vector.end()), vector.end());//#4
+	//std::unique_copy(vector.cbegin(), vector.cend(),//
+	//	std::ostream_iterator < int >(std::cout, "\n"));
+	std::for_each(std::begin(vector), std::end(vector), [](auto x) {std::cout << x << " "; });
 	std::cout << std::endl;
 	
 	std::cout << "amount of odd numbers: "<<std::count_if(std::begin(vector), 
