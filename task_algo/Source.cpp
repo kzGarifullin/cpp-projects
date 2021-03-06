@@ -86,7 +86,7 @@ int main(int argc, char** argv)
 	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
 	std::cout << std::endl;
 
-	std::for_each(std::begin(v3), std::end(v3), [](auto &x) {if (x < 30) x = 0; });//#13
+	std::for_each(std::begin(v3), std::end(v3), [](auto &x) {if (x < 0) x = 0; });//#13
 	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
 	std::cout << std::endl;
 	
@@ -102,7 +102,7 @@ int main(int argc, char** argv)
 	
 	std::cout << "16 task" << std::endl;
 	std::nth_element(std::begin(v3), std::next(std::begin(v3), 3), std::end(v3), std::greater<int>());
-	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
+	std::for_each(std::begin(v3), std::begin(v3)+3, [](auto x) {std::cout << x << " "; });
 	std::cout << std::endl;
 
 	std::cout << "17 task" << std::endl;
