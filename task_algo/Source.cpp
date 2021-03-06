@@ -75,7 +75,13 @@ int main(int argc, char** argv)
 	std::cout << std::endl;
 
 	std::vector<int> v3;//#12
-	std::transform(std::begin(vector), std::end(vector), std::begin(v2),std::back_inserter(v3), [](auto a,auto b) {return a-b; });
+	std::cout << "task 12";
+	std::cout << std::endl;
+	std::for_each(std::begin(vector), std::end(vector), [](auto x) {std::cout << x << " "; });//
+	std::cout << std::endl;
+	std::for_each(std::begin(v2), std::end(v2), [](auto x) {std::cout << x << " "; });//
+	std::cout << std::endl;
+	std::transform(std::begin(vector), std::end(vector), std::begin(v2),std::back_inserter(v3), std::minus());
 	std::cout << "v3: " << std::endl;
 	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
 	std::cout << std::endl;
