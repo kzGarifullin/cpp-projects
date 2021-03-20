@@ -16,6 +16,7 @@ bool isPrime(int num) {
 	}
 	return flag;
 }
+bool IsNeg(int i) { if (i < 0)return 1; else return 0; }
 
 int main(int argc, char** argv)
 {
@@ -86,7 +87,8 @@ int main(int argc, char** argv)
 	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
 	std::cout << std::endl;
 
-	std::for_each(std::begin(v3), std::end(v3), [](auto &x) {if (x < 0) x = 0; });//#13
+	//std::for_each(std::begin(v3), std::end(v3), [](auto &x) {if (x < 0) x = 0; });//#13
+	std::replace_if(v3.begin(), v3.end(), IsNeg, 0);
 	std::for_each(std::begin(v3), std::end(v3), [](auto x) {std::cout << x << " "; });
 	std::cout << std::endl;
 	

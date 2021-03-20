@@ -8,7 +8,7 @@
 #include <chrono>
 int main(int argc, char** argv)
 {
-	int N = 1000000;
+	int N = 5000000;
 	srand(4541);
 	std::vector <int> vec1;
 	std::vector<int> vec2;
