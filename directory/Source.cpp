@@ -54,8 +54,8 @@ void view_directory(const std::filesystem::path& path)
 			std::cout << file_name << std::endl;
 			auto ftime = std::filesystem::last_write_time(entry.path());
 			//time_t ñftime = std::file_time_type::clock::to_time_t(std::filesystem::last_write_time(entry.path()))
-			std::time_t cftime = decltype(ftime)::clock::to_time_t(ftime);
-			std::cout << "File write time is " << std::asctime(std::localtime(&cftime)) << '\n';
+			//std::time_t cftime = decltype(ftime)::clock::to_time_t(ftime);
+			std::cout << "File write time is " << ftime.time_since_epoch().count() <<"ms from Unics"<< '\n';
 		}
 	}
 }
@@ -64,13 +64,12 @@ int main(int argc, char** argv)
 {
 	system("chcp 1251");
 
-	std::cout << compute_file_size("./Source.cpp") << std::endl;
-
-	std::cout << compute_directory_size(std::filesystem::current_path()) << std::endl;
-	std::cout << "//////////////////////";
-	//view_directory(std::filesystem::current_path());
-	view_directory("C:/Users/user/scikit_learn_data");
+	
+	
+	view_directory("C:/Users/user");
 	system("pause");
 
 	return EXIT_SUCCESS;
 }
+
+
