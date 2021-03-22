@@ -8,8 +8,6 @@
 #include <string>
 #include "json.hpp"
 using nlohmann::json;
-
-
 class Adress
 {
 private:
@@ -67,16 +65,13 @@ public:
 
 std::ostream& operator<< (std::ostream& out, const Point& point)
 {
-	// Поскольку operator<< является другом класса Point, то мы имеем прямой доступ к членам Point
 	out << "Point(" << point.m_x << ", " << point.m_y << ", " << point.m_z <<", "<< point.m_a<<")";
-
 	return out;
 }
 
 std::istream& operator>> (std::istream& in, Point& point)
 {
-	// Поскольку operator>> является другом класса Point, то мы имеем прямой доступ к членам Point.
-	// Обратите внимание, параметр point (объект класса Point) должен быть неконстантным, чтобы мы имели возможность изменить члены класса
+	
 	in >> point.m_x;
 	in >> point.m_y;
 	in >> point.m_z;
@@ -112,27 +107,11 @@ int main(int argc, char** argv)
 	Point point3;
 	std::cin >> point3;
 
-	Adress a{ 23,"Gogol" }; // uniform-инициализаци
+	Adress a{ 23,"Gogol" }; 
 	std::cout << point1;
-	//std::filesystem::path path_input = "input.txt";
-	//std::filesystem::path path_output = "output.txt";
 
-	//std::fstream fin(path_input.string(), std::ios::in);
 
-	json j;
-	
-	//fin >> j;
-
-	//fin.close();
-
-	//std::cout << std::setw(4) << j << std::endl;
-
-	//j["firstName"] = "Ivan";
-	//j["happy"] = true;
-	//j.erase("lastName");
-
-	
-	
+	json j;	
 	std::filesystem::path path_output1 = path/"output1.txt";
 	json j1;
 	print(point1, j1);
@@ -153,35 +132,4 @@ int main(int argc, char** argv)
 	std::fstream fout3(path_output3.string(), std::ios::out);
 
 	fout3 << std::setw(4) << j3;
-
-	
-
-
-
-	//std::cout<< point1.get_m_x();
-
-	//for (auto iterator = j.begin(); iterator != j.end(); ++iterator)
-	//{
-	//	std::cout << iterator.key() << " : " << iterator.value() << "\n";
-	//}
-
-	//for (auto& element : j.items())
-	//{
-	//	std::cout << element.key() << " : " << element.value() << "\n";
-	//}
-
-	//for (auto& [key, value] : j.items()) // C++17 bindings
-	//{
-	//	std::cout << key << " : " << value << "\n";
-	//}
-
-	
-
-	//system("pause");
-
-	//return EXIT_SUCCESS;
-
-
-
-
 }

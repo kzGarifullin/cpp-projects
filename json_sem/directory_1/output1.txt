@@ -1,9 +1,9 @@
 {
     "Adress": {
-        "num": 5,
-        "street": "tr"
+        "num": 4,
+        "street": "rg"
     },
     "m_x": 1.0,
-    "m_y": 2.0,
-    "m_z": "rer"
+    "m_y": 3.0,
+    "m_z": "fgd"
 }
