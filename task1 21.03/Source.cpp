@@ -7,6 +7,8 @@
 int main()
 {
 	std::fstream fin("test.txt", std::ios::in);
+	std::ofstream out;          // поток для записи
+	std::string final;
 	std::string s;
 	bool flag_zv = false;
 	while (std::getline(fin, s)) {
@@ -22,6 +24,7 @@ int main()
 			if (s[i] == '\"')
 			{
 				std::cout << s[i];
+				final += s[i];
 
 				if (flag_kov == true)
 				{
@@ -40,6 +43,7 @@ int main()
 				if (flag_kov == true) //если в ковычках-все выводим
 				{
 					std::cout << s[i];
+					final += s[i];
 					if (s[i] == '\\') {
 						flag_spec = true;
 					}
@@ -64,6 +68,7 @@ int main()
 							if (flag_zv == true) {}
 							else {
 								std::cout << s[i];
+								final += s[i];
 								flag = false;
 							}
 						}
@@ -75,6 +80,13 @@ int main()
 
 		}
 		std::cout << std::endl;
+		final += '\n';
 	}
+	std::cout << final;
+	std::fstream fout;
+	fout.open("test.txt",std::ios::out);
+	
+	fout.seekg(0, std::ios::beg);
+	fout << final;
 
 }
