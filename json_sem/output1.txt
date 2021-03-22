@@ -1,0 +1,9 @@
+{
+    "Adress": {
+        "num": 5,
+        "street": "rtr"
+    },
+    "m_x": 1.0,
+    "m_y": 2.0,
+    "m_z": "rer"
+}

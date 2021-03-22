@@ -1,0 +1,9 @@
+{
+    "Adress": {
+        "num": 7,
+        "street": "gfg"
+    },
+    "m_x": 3.0,
+    "m_y": 4.0,
+    "m_z": "kik"
+}
