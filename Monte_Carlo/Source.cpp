@@ -6,9 +6,13 @@
 #include <functional>
 void posl_pi(int N,double &local) {
 	double x, y;
+	//srand(static_cast<unsigned int>(time(0)));
+	
 	int U = 0;
+	//srand(41+3*local);
 	double M = 0.0;
-	std::mt19937_64 mt;
+	//std::mt19937_64 mt;
+	std::mt19937 mt(std::random_device{}());
 	std::uniform_real_distribution<>urd(0.0, 1.0);
 	for (auto i = 0; i < N; ++i)
 	{
