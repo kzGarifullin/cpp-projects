@@ -10,6 +10,7 @@
 #include <functional>
 #include <execution>
 #include <numeric>
+#include <cmath>
 class Timer
 {
 public:
@@ -83,18 +84,20 @@ int main() {
 
 
 
-	std::vector<int> v(100,2); // or std::vector<int>v(10, 2);
+	std::vector<int> v(100000000,2); // or std::vector<int>v(10, 2);
 
 	Timer T;
 	
-	std::partial_sum(v.begin(), v.end(),
-		std::ostream_iterator<int>(std::cout, " "));
-	std::cout << '\n';
+	/*std::partial_sum( v.begin(), v.end(), v.begin(),
+		[](auto x, auto y) {return sin(x) + sin(y); });
+	std::cout << '\n';*/
 	
 	
-	//std::cout << "exclusive sum: ";
-	//std::exclusive_scan(v.begin(), v.end(),
-	//	std::ostream_iterator<int>(std::cout, " "),
-	//	2);
+
+
+	std::cout << "exclusive sum: ";
+	std::inclusive_scan(std::execution::par, v.begin(), v.end(),v.begin(),
+		[](auto x,auto y){return sin(x)+sin(y);},//N=1000000 parall v 1.5 raza bistree
+		2);
 
 }
