@@ -15,33 +15,6 @@
 #include <functional>
 
 
-class Timer
-{
-public:
-	using clock_t = std::chrono::steady_clock;
-	using time_point_t = clock_t::time_point;
-	void pause() 
-	{
-		pa = clock_t::now();
-		dur += std::chrono::duration_cast<std::chrono::microseconds>(
-			pa - m_begin);
-	}
-	void cont()
-	{
-		m_begin = clock_t::now();
-	}
-	Timer() : m_begin(clock_t::now()), dur(0) {}
-	~Timer()
-	{
-		auto end = clock_t::now();
-		std::cout << "micro: " << std::chrono::duration_cast<std::chrono::microseconds>(
-			end - m_begin).count() + dur.count() << std::endl;
-	}
-private:
-	time_point_t m_begin;
-	time_point_t pa;
-	std::chrono::microseconds dur;
-};
 
 
 template < typename Iterator, typename T >
@@ -80,13 +53,13 @@ int main(int argc, char** argv)
 	
 	std::vector<int> nums{ 3, 4, 2, 8, 15, 267 };
 
-	Timer T;
+	//Timer T;
 	//std::for_each(nums.begin(), nums.end(), [](int& n) { n++; });
 	//std::for_each(std::begin(vector), std::end(vector), [](auto x) {std::cout << x << " "; });
 	//std::for_each(nums.begin(), nums.end(), [](auto x) {std::cout << x*1.34 << " "; });
 	//std::for_each  (v.begin(), v.end(), [](auto x) {std::cout << x << " "; });
-	//parallel_for_each(v.begin(), v.end(), [](auto x) {std::cout << x << " "; });
-	std::for_each(v.begin(), v.end(), [](auto x) {return x * 3.12; });
+	parallel_for_each(v.begin(), v.end(), [](auto x) {std::cout << x << " "; });
+	//std::for_each(v.begin(), v.end(), [](auto x) {return x * 3.12; });
 	//parallel_for_each(v.begin(), v.end(), [](auto x) {return x*3.12; });
 	//std::cout << parallel_for_each(nums.begin(), nums.end(), [](int& n) { n++; }) << std::endl;
 
