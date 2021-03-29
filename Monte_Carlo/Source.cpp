@@ -4,7 +4,9 @@
 #include <thread>
 #include <vector>
 #include <functional>
-void posl_pi(int N,double &local) {
+#include <atomic>
+
+void posl_pi(int N, std::atomic<double> &local) {
 	double x, y;
 	//srand(static_cast<unsigned int>(time(0)));
 	
@@ -22,18 +24,19 @@ void posl_pi(int N,double &local) {
 		if (pow((x - 0.5), 2) + pow((y - 0.5), 2) < 0.25)
 		{
 			M++;
+			//local=local+1;
 		}
 	}
-	local+=  M;
+	local = local + M;
 }
 int main() 
 {
 	int N = 10000000;
-	double local = 0;
+	/*double local = 0;
 	posl_pi(N, local);
-	std::cout << 4 * local / N<<std::endl;
-	
-	double local2 = 0;
+	std::cout << 4 * local / N<<std::endl;*/
+	std::atomic<double> local2 = 0.0;
+	//double local2 = 0;
 	std::vector < std::thread > threads;
 	
 	for (std::size_t i = 0; i < std::thread::hardware_concurrency(); ++i)

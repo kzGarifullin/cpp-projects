@@ -37,9 +37,9 @@ void parallel_for_each(Iterator first, Iterator last, T init)
 			std::async(parallel_for_each < Iterator, T >, first, middle, init);
 
 		
-
-		first_half_result.get();
 		parallel_for_each(middle, last, init);
+		first_half_result.get();
+		
 	}
 }
 
@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 {
 	
 	
-	std::vector < int > v(1000000);
+	std::vector < int > v(1000);
 
 	std::iota(v.begin(), v.end(), 1);
 	
