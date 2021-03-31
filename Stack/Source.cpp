@@ -91,13 +91,14 @@ void trigonom(Threadsafe_Stack<int> &stack)
     {
        
         stack.push(5);
+        std::this_thread::yield();
     }
 }
 void read_vals(Threadsafe_Stack<int> &stack)
 {
     while (!go) 
         std::this_thread:: yield();
- 
+        
         stack.pop();
         std::this_thread::yield();
     
@@ -133,7 +134,8 @@ int main(int argc, char* argv[])
 {
     Life life{ 1,2,3 };
     Threadsafe_Stack < int > stack;
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100; i++) 
+    {
         stack.push(5);
     }
     std::vector < std::thread > threads;
