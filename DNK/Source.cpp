@@ -169,11 +169,12 @@ int main(int argc, char** argv)
 
 	std::string s = "AGTCAGTCCCAGAAATACAGTA";
 	std::string s1 = "CAG";
-
+	std::vector<int> v1;
 	auto result = parallel_find(s.begin(), s.end(), s1);
+	v1.push_back(result - s.begin() - s1.length() + 1);
 	if (result != s.end())
 	{
-		std::cout << "Elements found: " << result - s.begin()-s1.length()+1<< std::endl;
+		//std::cout << "Elements found: " << result - s.begin()-s1.length()+1<< std::endl;
 		auto iter = result;
 		while (iter < s.end()) {
 			/*Iterator block_end = block_start;
@@ -181,9 +182,11 @@ int main(int argc, char** argv)
 			
 			std::advance(iter, 1);
 			auto result = parallel_find(iter, s.end(), s1);
+			
 			if (result != s.end())
 			{
-				std::cout << "Elements found: " << result - s.begin() - s1.length() + 1 << std::endl;
+				//std::cout << "Elements found: " << result - s.begin() - s1.length() + 1 << std::endl;
+				v1.push_back(result - s.begin() - s1.length() + 1);
 				iter = result;
 			}
 		}
@@ -192,7 +195,7 @@ int main(int argc, char** argv)
 	{
 		std::cout << "Element not found." << std::endl;
 	}
-
+	std::for_each(v1.begin(), v1.end(), [](auto x) {std::cout << x << " "; });
 	system("pause");
 
 	return EXIT_SUCCESS;
