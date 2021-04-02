@@ -3,9 +3,10 @@
 #include <mutex>
 #include <queue>
 #include <queue>
+#include <iostream>
 
 
-template < typename T >
+template < typename T, typename T1, typename T2 >
 class Threadsafe_Queue
 {
 public:
@@ -91,7 +92,7 @@ public:
 
 private:
 
-	std::priority_queue < T >		m_queue;
+	std::priority_queue < T, T1,T2>	m_queue;
 	std::condition_variable m_condition_variable;
 
 private:
@@ -101,16 +102,18 @@ private:
 
 int main(int argc, char** argv)
 {
-	Threadsafe_Queue < int > queue;
+	Threadsafe_Queue < int, std::vector<int>, std::greater<int> > queue;
 
 	queue.push(42);
+	queue.push(4);
+	queue.push(2);
 
 	auto ptr = queue.wait_and_pop();
 
 	int value;
 
 	bool result = queue.try_pop(value);
-
+	//std::cout<<value;
 	system("pause");
 
 	return EXIT_SUCCESS;
