@@ -8,6 +8,9 @@
 #include <vector>
 #include <string>
 
+
+std::mutex m_mutex;
+
 class Threads_Guard
 {
 public:
@@ -46,78 +49,54 @@ private:
 template < typename Iterator, typename T >
 struct Searcher
 {
-	void operator()(Iterator first, Iterator last, std::string element,
-		std::promise < Iterator >& result, std::atomic < bool >& flag) noexcept
+	void operator()(Iterator first, Iterator last, T element, std::vector<std::string::iterator>& v) noexcept
 	{
 		try
 		{
-			int count = 0;
-			auto size = element.length();
-			//auto j = 0;
-			for (; (first != last) && !flag.load(); ++first)
+			auto it = last;
+			it = std::prev(it, size(element));
+			for (auto i = first; i < it; ++i)
 			{
-				//std::string first_str(*first);
-				
-				
-				
-					
-					//auto k = element[j].c_str();
-					if (*first == element[count])
+				int k = 0;
+					bool flag = true;
+					auto it2 = i;
+					std::advance(it2, size(element));
+					auto j = i;
+					for (j; j < it2; ++j)
 					{
-						count++;
 						
-					}
-					else 
-					{ 
-						count = 0;
-						if (*first == element[count])
+						if (*j == element[k])
 						{
-							count++;
-
+							k++;
 						}
-					
+						else
+						{
+							flag = false;
+							k = 0;
+							break;
+						}
+
 					}
-					if (count == size)
-					{
-						result.set_value(first);
-						flag.store(true);
-						return;
-					}
-
-
-				
-
-				/*if (*first == element)
+				std::lock_guard<std::mutex> lock(m_mutex);
+				if (flag == true)
 				{
-					result.set_value(first);
-					flag.store(true);
-					return;
-				}*/
+					v.push_back(i);
+				}
+
 			}
 		}
 		catch (...)
 		{
-			try
-			{
-				result.set_exception(std::current_exception());
-				flag.store(true);
-			}
-			catch (...)
-			{
-				// ...
-			}
+
 		}
 	}
+	
 };
 
 template < typename Iterator, typename T >
-Iterator parallel_find(Iterator first, Iterator last, T element)
+void parallel_find(Iterator first, Iterator last, T element,  std::vector<std::string::iterator> &v)
 {
 	const std::size_t length = std::distance(first, last);
-
-	if (!length)
-		return last;
-
 	const std::size_t min_per_thread = 25;
 	const std::size_t max_threads =
 		(length + min_per_thread - 1) / min_per_thread;
@@ -143,72 +122,41 @@ Iterator parallel_find(Iterator first, Iterator last, T element)
 		{
 			Iterator block_end = block_start;
 			std::advance(block_end, block_size);
-
+			Iterator new_end = block_end;
+			std::advance(new_end, size(element));//ZAHLEST
 			threads[i] = std::thread(Searcher < Iterator, T >(),
-				block_start, block_end, element, std::ref(result), std::ref(flag));
+				block_start, new_end, element, std::ref(v));
 
 			block_start = block_end;
 		}
 
-		Searcher < Iterator, T >()(block_start, last, element, result, flag);
+		Searcher < Iterator, T >()(block_start, last, element, std::ref(v));
 	}
 
-	if (!flag.load())
-	{
-		return last;
-	}
 
-	return result.get_future().get();
 }
+
 
 int main(int argc, char** argv)
 {
-	std::vector < int > v{ 1,4,2,6,8,9,7,9,3 };
+	std::vector < std::string::iterator > v;
 
 	
 
-	std::string s = "AGTCAGTCCCAGAAATACAGTA";
-	std::string s1 = "CAG";
-	std::vector<int> v1;
-	auto result = parallel_find(s.begin(), s.end(), s1);
-	v1.push_back(result - s.begin() - s1.length() + 1);
-	if (result != s.end())
-	{
-		//std::cout << "Elements found: " << result - s.begin()-s1.length()+1<< std::endl;
-		auto iter = result;
-		while (iter < s.end()) {
-			/*Iterator block_end = block_start;
-			std::advance(block_end, block_size);*/
-			
-			std::advance(iter, 1);
-			auto result = parallel_find(iter, s.end(), s1);
-			
-			if (result != s.end())
-			{
-				//std::cout << "Elements found: " << result - s.begin() - s1.length() + 1 << std::endl;
-				v1.push_back(result - s.begin() - s1.length() + 1);
-				iter = result;
-			}
-		}
+	//std::string s = "AGTCACAGTAAAATATATATTATATCAGTATCAGATAAAAAAAAATATCAGATAACAAAAACAAAATCATT";
+	std::string s = "CACACACACACACACACACACACACACACACACACACACACACACACA";
+
+	std::string s1 = "CA";
+	std::vector<std::string::iterator> v1;
+
+	parallel_find(s.begin(), s.end(), s1, std::ref(v));
+	//std::for_each(v.begin(), v.end(), [s](auto x) {std::cout << std::distance(x,s.begin()) << " "; });
+	for (int i = 0; i < size(v); i++) {
+		std::cout << std::distance(s.begin(), v[i]) << std::endl;
 	}
-	else
-	{
-		std::cout << "Element not found." << std::endl;
-	}
-	std::for_each(v1.begin(), v1.end(), [](auto x) {std::cout << x << " "; });
+	std::cout << std::endl;
+	
 	system("pause");
 
 	return EXIT_SUCCESS;
 }
-
-//int main() 
-//{
-//	std::string s = "AGTCAGTCCCAGGTG";
-//	std::string element = "CAG";
-//	auto size = element.length();
-//	int count = 0;
-//	auto k = s.begin();
-//	if (*k == s[1])
-//		std::cout << "UYGF";
-//
-//}
