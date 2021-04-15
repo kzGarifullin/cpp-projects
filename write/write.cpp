@@ -2,7 +2,7 @@
 
 #include <boost/asio.hpp>
 //client
-std::atomic < bool > exit_flag;
+std::atomic < bool > exit_flag_w=false;
 std::string read_data(boost::asio::ip::tcp::socket& socket)
 {
 	const std::size_t length = 10;//server
@@ -16,10 +16,7 @@ void read_data_until(std::string name,boost::asio::ip::tcp::socket& socket)
 
 	while (true)
 	{
-		if (exit_flag)
-		{
-			break;
-		}
+		
 		boost::asio::streambuf buffer;
 
 		boost::asio::read_until(socket, buffer, '\n');
@@ -30,6 +27,10 @@ void read_data_until(std::string name,boost::asio::ip::tcp::socket& socket)
 		std::getline(input_stream, message, '\n');
 
 		//return message;
+		if (message == "exit")
+		{
+			break;
+		}
 		std::cout << name << ": " << message << std::endl;
 	}
 }
@@ -42,14 +43,14 @@ void write_data(boost::asio::ip::tcp::socket& socket)
 		getline(std::cin, data);
 		boost::asio::write(socket, boost::asio::buffer(data+"\n"));
 	} while (data != "exit");
-	exit_flag = true;
+	exit_flag_w = true;
 
 }
 
 int main(int argc, char** argv)
 {
 	system("chcp 1251");
-
+	exit_flag_w = false;
 	std::string raw_ip_address = "127.0.0.1";
 
 	auto port = 3333;

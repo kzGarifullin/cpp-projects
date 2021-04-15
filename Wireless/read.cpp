@@ -1,6 +1,6 @@
 #include <iostream>
 #include <boost/asio.hpp>
-std::atomic < bool > exit_flag;
+std::atomic < bool > exit_flag=false;
 std::string read_data(boost::asio::ip::tcp::socket& socket)
 {
 	const std::size_t length = 10;//server
@@ -13,16 +13,17 @@ void read_data_until(std::string name,boost::asio::ip::tcp::socket& socket)
 {
 	while (true)
 	{
-		if (exit_flag)
-		{
-			break;
-		}
+		
 		boost::asio::streambuf buffer;
 		boost::asio::read_until(socket, buffer, '\n');
 		std::string message;
 		std::istream input_stream(&buffer);
 		std::getline(input_stream, message, '\n');
 		//return message;
+		if (message == "exit")
+		{
+			break;
+		}
 		std::cout << name<<": "<< message << std::endl;
 	}
 }
@@ -42,7 +43,7 @@ void write_data(boost::asio::ip::tcp::socket& socket)
 int main()
 {
 	system("chcp 1251");
-	exit_flag = false;
+	//exit_flag = false;
 	const std::size_t size = 30;
 	
 	auto port = 3333;
