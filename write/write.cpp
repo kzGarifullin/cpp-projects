@@ -51,9 +51,9 @@ int main(int argc, char** argv)
 {
 	system("chcp 1251");
 	exit_flag_w = false;
-	std::string raw_ip_address = "127.0.0.1";
+	std::string raw_ip_address = "93.175.11.110";
 
-	auto port = 3333;
+	auto port = 8000;
 
 	try
 	{

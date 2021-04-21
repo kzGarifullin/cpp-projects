@@ -46,7 +46,7 @@ int main()
 	//exit_flag = false;
 	const std::size_t size = 30;
 	
-	auto port = 3333;
+	auto port = 8000;
 
 	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address_v4::any(), port);
 
