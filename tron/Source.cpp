@@ -30,11 +30,9 @@ void step(Direction direction, Player &player, const int N, const int M)
 }
 int main()
 {
-
     const int N = 600;
     const int M = 480;
     int speed = 4;
-
 
     bool field[N][M] = { false };
     srand(time(0));
@@ -72,7 +70,6 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::Right)) if (direction1 != Direction::left)  direction1 = Direction::right;
         if (Keyboard::isKeyPressed(Keyboard::Up)) if (direction1 != Direction::down) direction1 = Direction::up;
         if (Keyboard::isKeyPressed(Keyboard::Down)) if (direction1 != Direction::up) direction1 = Direction::down;
-
         if (Keyboard::isKeyPressed(Keyboard::A)) if (direction2 != Direction::right) direction2 = Direction::left;
         if (Keyboard::isKeyPressed(Keyboard::D)) if (direction2 != Direction::left)  direction2 = Direction::right;
         if (Keyboard::isKeyPressed(Keyboard::W))  if (direction2 != Direction::down) direction2 = Direction::up;
