@@ -187,6 +187,7 @@ int main(int argc, char** argv)
 	const auto R = 22.5f;//radius of broun particle
 	int N = 100;//quantity of particles
 	sf::RenderWindow window(sf::VideoMode(480U, 480U), "BROUN");
+	sf::RenderWindow window2(sf::VideoMode(480U, 480U), "Viz");
 	for (int i = 0; i < N; i++) 
 	{
 		//Particle p0 = { rand()%480, rand() % 480, rand() % 100000 / 500.0 - 100, rand() % 100000 / 500.0 - 100, 4 };
@@ -265,7 +266,7 @@ int main(int argc, char** argv)
 			}
 		}
 		window.clear();
-
+		window2.clear();
 		for (auto i = 0; i < N+1; ++i)
 		{
 			if (particles[i].m > 10) {
@@ -286,6 +287,40 @@ int main(int argc, char** argv)
 			}
 		
 		}
+		int field[10][10];
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				field[i][j] = 0;
+			}
+		}
+		for (int i = 0; i < N + 1; i++)
+		{
+			int a = particles[i].y/48;
+			int b = particles[i].x / 48;
+			field[a][b] += 1;
+			
+		}
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				std::cout << field[i][j] << "   ";
+			}std::cout << std::endl;
+		}std::cout << "sdfghgfdsa";
+
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+
+				sf::RectangleShape rectangle{ { 48.f, 48.f } };
+				if(field[i][j]==0) rectangle.setFillColor(sf::Color(0, 50, 0));
+				if (field[i][j] == 1) rectangle.setFillColor(sf::Color(0, 100, 0));
+				if (field[i][j] == 2) rectangle.setFillColor(sf::Color(0, 150, 0));
+				if (field[i][j] == 3) rectangle.setFillColor(sf::Color(0, 200, 0));
+				if (field[i][j] >=4) rectangle.setFillColor(sf::Color(0, 250, 0));
+				rectangle.setPosition({ 48.f*i,48.f*j });
+				window2.draw(rectangle);
+
+			}
+		}
+
 		//std::cout << particles[15].vx << " ";
 		/*sf::CircleShape br_cir(40);
 
@@ -294,6 +329,7 @@ int main(int argc, char** argv)
 		br_cir.setFillColor(sf::Color::White);
 		window.draw(br_cir);*/
 		window.display();
+		window2.display();
 	}
 
 
